@@ -1,0 +1,14 @@
+a{
+    display: block;
+    margin: 10px;
+    font-size: x-large;
+    text-align:left;
+    color: black;
+
+}
+
+p{
+    margin-bottom: 10px;
+    font-size: large;
+    color: black;
+}

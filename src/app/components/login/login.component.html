@@ -1,0 +1,47 @@
+<div class="text-center">
+
+    <h2>Login to our coupon system: </h2>
+
+    <form #formInfo="ngForm">
+        <input required #usernameInfo="ngModel" type="text" placeholder="Enter your username"
+            [(ngModel)]="login.username" name="username" />
+        <span *ngIf="usernameInfo.errors?.required&&usernameInfo.touched">Missing username</span>
+
+        <br><br>
+
+        <input required pattern="^.{4,}$" #passwordInfo="ngModel" type="password" placeholder="Enter your password"
+            [(ngModel)]="login.password" name="password" />
+        <span *ngIf="passwordInfo.errors?.required&&passwordInfo.touched">Missing password</span>
+        <span *ngIf="passwordInfo.errors?.pattern&&passwordInfo.touched">Password too short (min. 4)</span>
+
+        <br><br>
+
+        <select [(ngModel)]="login.type" name="loginType">
+            <option *ngFor="let type of types" [value]="type">{{type}}</option>
+        </select>
+
+        <br><br>
+
+        <button class="btn btn-success btn-lg" [disabled]="formInfo.form.invalid" (click)=send()>Login</button>
+
+    </form>
+    <hr>
+    <br><br>
+<div class="row">
+    <h4>For your convenience, click on any of the login buttons to load valid credentials: </h4>
+    <br>
+</div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <button class="btn btn-primary" (click)="setAdminLogin()">Login with admin details</button>
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-primary" (click)="setCompanyLogin()">Login as a sample company</button>
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-primary" (click)="setCustomerLogin()">Login as a sample customer</button>
+        </div>
+    </div>
+
+</div>

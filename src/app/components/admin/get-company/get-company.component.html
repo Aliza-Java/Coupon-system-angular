@@ -1,0 +1,50 @@
+<div class="container">
+    <h2>Select the company (by Id):</h2>
+
+    <!--If there are no companies, empty list notice will appear instead of dropdown.-->
+    <div id="emptyListArea" *ngIf="adminService.allCompanies?.length == 0">
+        <app-empty-list whatInWhere="companies in the system."></app-empty-list>
+    </div>
+
+    <div *ngIf="adminService.allCompanies?.length > 0" class="row">
+        <div class="col-md-1 col-md-offset-5">
+            <select class="form-control" [(ngModel)]="companyId">
+                <option *ngFor="let c of adminService.allCompanies"> {{c.id}}</option>
+            </select>
+        </div>
+        <div class="col-md-6 text-left">
+            <!--Preventing sending if no id was chosen-->
+            <button class="btn btn-info" [disabled]="!companyId"
+                (click)="adminService.findCompanyNow(companyId)">Find
+                now</button>
+        </div>
+    </div>
+
+    
+
+    <div *ngIf="adminService.companyToGet">
+
+        <hr>
+        <table class="table thead-dark table-bordered">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Password</th>
+                <th>Email</th>
+                <th>Coupons</th>
+            </tr>
+            <tr>
+                <td>{{adminService.companyToGet.id}}</td>
+                <td>{{adminService.companyToGet.name}}</td>
+                <td>{{adminService.companyToGet.password}}</td>
+                <td>{{adminService.companyToGet.email}}</td>
+                <td class="text-left">
+                    <ul class="text-left">
+                        <li class="text-left" *ngFor="let cp of adminService.companyToGet.coupons">id: {{cp.id}}, title: {{cp.title}}</li>
+                    </ul>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+<div class="container">
+   
+
+    <!--If there are no coupons, empty list notice will appear instead of dropdown.-->
+
+    <div *ngIf="companyService.allCoupons?.length == 0">
+        <app-empty-list whatInWhere="coupons for your company."></app-empty-list>
+    </div>
+
+    <div *ngIf="companyService.allCoupons?.length > 0">
+        <h2>Select the coupon id:</h2>
+
+        <div class="row">
+            <div class="col-md-1 col-md-offset-5">
+                <select class="form-control" [(ngModel)]="couponId">
+                    <option *ngFor="let c of companyService.allCoupons"> {{c.id}}</option>
+                </select>
+            </div>
+            <div class="col-md-6 text-left">
+                <button class="btn btn-info" [disabled]="!couponId"
+                    (click)="companyService.findCouponNow(couponId)">Find
+                    now</button>
+            </div>
+        </div>
+        <hr>
+
+    </div>
+
+
+
+    <div *ngIf="companyService.couponToGet">
+        <table class="table thead-dark table-bordered">
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>StartDate</th>
+                <th>EndDate</th>
+                <th>Amount</th>
+                <th>Category</th>
+                <th>Message</th>
+                <th>Price</th>
+
+            </tr>
+            <tr>
+                <td>{{companyService.couponToGet.id}}</td>
+                <td>{{companyService.couponToGet.title}}</td>
+                <td>{{companyService.couponToGet.startDate}}</td>
+                <td>{{companyService.couponToGet.endDate}}</td>
+                <td>{{companyService.couponToGet.amount}}</td>
+                <td>{{companyService.couponToGet.category}}</td>
+                <td>{{companyService.couponToGet.message}}</td>
+                <td>{{companyService.couponToGet.price}}</td>
+            </tr>
+
+        </table>
+        <!--if no image he shouldn't show a default image icon-->
+        <div *ngIf="companyService.couponToGet.image" class="row">
+            <div class="col-md-12 text-center">
+                <img height="200px" src="{{companyService.couponToGet.image}}" />
+            </div>
+        </div>
+    </div>
+</div>

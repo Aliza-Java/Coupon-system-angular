@@ -1,0 +1,12 @@
+table{
+    margin: auto;
+}
+
+table, tr, th, td{
+    border: 1px solid black;
+}
+
+.div-content{
+    height: 80%; 
+    overflow: auto;
+}

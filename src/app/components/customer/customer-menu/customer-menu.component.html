@@ -1,0 +1,9 @@
+<!--A click on any router link will clear all messages and core variables in customerService-->
+
+<h3>Select an action:</h3>
+<br>
+<nav>
+    <a routerLink="customer/home" (click)="customerService.resetMessages()">Home</a>
+    <a routerLink="customer/coupons" (click)="customerService.resetMessages()">List of my coupons</a>
+    <a routerLink="customer/purchase" (click)="customerService.resetMessages()">Purchase a coupon</a>
+</nav>

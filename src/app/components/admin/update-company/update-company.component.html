@@ -1,0 +1,77 @@
+<div class="container">
+
+    <h2>Select the company you wish to update:</h2>
+
+    <!--If there are no companies, empty list notice will appear instead of dropdown.-->
+
+    <div *ngIf="adminService.allCompanies?.length == 0">
+        <app-empty-list whatInWhere="companies in the system."></app-empty-list>
+    </div>
+
+    <div class="row">
+        <div *ngIf="adminService.allCompanies?.length > 0">
+
+            <div class="col-md-1 col-md-offset-4 text-right">
+                <select style="width: fit-content;" class="form-control" [(ngModel)]="companyId">
+                    <option *ngFor="let c of adminService.allCompanies">{{c.id}}</option>
+                </select>
+            </div>
+
+            <!--preventing sending if no company has been chosen -->
+            <div class="col-md-3">
+                <button class="btn btn-info" [disabled]="!companyId" (click)="fillCompanyDetails()">Find this
+                    company</button>
+            </div>
+        </div>
+    </div>
+    <br><br>
+
+    <div *ngIf="companyToUpdate">
+        <form #formInfo="ngForm">
+            <!--the form allows to require fields and to invalidate the send button-->
+            <table class="table thead-dark table-bordered">
+                <tr>
+                    <td class="fixed-width text-left">Id:</td>
+                    <td class="fixed-width text-left">{{companyToUpdate.id}}</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td class="fixed-width text-left">Name:</td>
+                    <td class="fixed-width text-left">{{companyToUpdate.name}}</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td class="fixed-width text-left">Password:</td>
+                    <td class="fixed-width text-left"><input required pattern="^.{4,}$" #passwordInfo="ngModel"
+                            name="password" type="password" [(ngModel)]="companyToUpdate.password"
+                            (keydown)="enableSubmit()" /></td>
+                    <td><span class="error" *ngIf="passwordInfo.errors?.required&&passwordInfo.touched">Password
+                            required</span>
+                        <span class="error" *ngIf="passwordInfo.errors?.pattern&&passwordInfo.touched">Password too
+                            short</span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="fixed-width text-left">Email:</td>
+                    <td class="fixed-width text-left"><input required touched
+                            pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" type="email"
+                            #emailInfo="ngModel" [(ngModel)]="companyToUpdate.email" name="email"
+                            (keydown)="enableSubmit()" /></td>
+                    <td><span class="error" *ngIf="emailInfo.errors?.required&&emailInfo.touched">Email address is
+                            required</span>
+                        <span class="error" *ngIf="emailInfo.errors?.pattern&&emailInfo.touched">Check the email address
+                            again</span>
+                    </td>
+                </tr>
+
+            </table>
+
+            <!--submit button will be disabled unless form is completely valid, and only if there has been a change made -->
+            <button class="btn btn-success btn-lg" [disabled]="formInfo.form.invalid || !wasChange"
+                (click)="submitChanges()">Submit changes</button>
+        </form>
+    </div>
+</div>

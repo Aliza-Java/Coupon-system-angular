@@ -1,0 +1,24 @@
+table{
+    background-color: white;
+    color: black;
+    border: none;
+}
+
+.fixed-width{
+    width: 250px;
+    text-align:left;
+}
+
+td{
+    text-align: left;
+}
+
+.error{
+    background-color: white;
+    border: none;
+}
+
+span{
+    background-color: white;
+    border: none;
+}

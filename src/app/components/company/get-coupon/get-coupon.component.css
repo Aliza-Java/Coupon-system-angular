@@ -1,0 +1,12 @@
+table{
+    border: black solid 1px;
+    border-right:  black solid 1px;
+}
+
+select{
+    width: fit-content;
+}
+
+div{
+    overflow: hidden;
+}

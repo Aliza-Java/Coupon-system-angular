@@ -1,0 +1,43 @@
+<div class="container">
+    <div *ngIf="!adminService.resultMessage">
+        <!--When succeeds will show success message instead of input form-->
+        <h2>Enter new customer details:</h2>
+
+        <form #formInfo="ngForm">
+            <table class="table thead-dark table-bordered">
+                <tr>
+                    <td class="fixed-width">Name:</td>
+                    <td class="fixed-width"><input required pattern="^.{2,}$" #nameInfo="ngModel" name="name" type="text"
+                            placeholder="Enter a customer name" [(ngModel)]="newName" /></td>
+                    <td><span class="error" *ngIf="nameInfo.errors?.required&&nameInfo.touched">Customer name
+                            required</span>
+                        <span class="error" *ngIf="nameInfo.errors?.pattern&&nameInfo.touched">Customer name too
+                            short</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="fixed-width">Password:</td>
+                    <td class="fixed-width"><input required pattern="^.{4,}$" #passwordInfo="ngModel" name="password" type="password"
+                            placeholder="4 characters or longer" [(ngModel)]="newPassword" /></td>
+                    <td><span class="error" *ngIf="passwordInfo.errors?.required&&passwordInfo.touched">Password
+                            required</span>
+                        <span class="error" *ngIf="passwordInfo.errors?.pattern&&passwordInfo.touched">Password too
+                            short</span>
+                    </td>
+                </tr>
+                <tr>
+               
+                    
+                </tr>
+            </table>
+            <div class="text-center">
+                <button class="btn btn-success btn-lg" [disabled]="formInfo.form.invalid" (click)="send()">Send</button>
+            </div>
+        </form>
+    </div>
+
+    <div *ngIf="adminService.resultMessage">
+        <h2>{{adminService.resultMessage}}</h2>
+        <button (click)="again()">Add another customer</button>
+    </div>
+</div>

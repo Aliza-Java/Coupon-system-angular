@@ -1,0 +1,75 @@
+<div class="container">
+    <h2>{{customerService.currentCustomer.name}}'s coupons:</h2>
+
+    <br>
+
+    <div class="row">
+        <div class="col-md-2">
+            <button class="btn btn-primary" (click)="selectAll()">All Coupons</button>
+        </div>
+
+        <div class="col-md-2 col-md-offset-1">
+            <select class="form-control" [(ngModel)]="byCategory">
+                <option *ngFor="let category of customerService.categories">{{category}}</option>
+            </select>
+        </div>
+
+        <div class="col-md-2">
+            <button class="btn btn-info" [disabled]="!byCategory" (click)="selectByCategory()">Select by
+                category</button>
+        </div>
+
+        <div class="col-md-2 col-md-offset-1">
+            <input class="form-control" placeholder="Enter price" [(ngModel)]="byPrice" />
+        </div>
+
+        <div class="col-md-2">
+            <button class="btn btn-info" [disabled]="!byPrice" (click)="selectByPrice()">Select up to this
+                price</button>
+        </div>
+
+    </div>
+
+
+
+
+
+
+    <hr>
+
+    <table class="table thead-dark table-bordered">
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>StartDate</th>
+            <th>EndDate</th>
+            <th>Category</th>
+            <th>Message</th>
+            <th>Price</th>
+            <th>Image</th>
+        </tr>
+
+        <!--If customer has no coupons, a notice will appear according to coupons selected.  -->
+        <tr *ngIf="customerService.selectedCoupons?.length == 0">
+            <td colspan="9" width="100%">
+                <app-empty-list whatInWhere={{emptyListMessage}}></app-empty-list>
+            </td>
+        </tr>
+
+
+        <tr *ngFor="let c of customerService.selectedCoupons">
+            <td>{{c.id}}</td>
+            <td>{{c.title}}</td>
+            <td>{{c.startDate}}</td>
+            <td>{{c.endDate}}</td>
+            <td>{{c.category}}</td>
+            <td>{{c.message}}</td>
+            <td>{{c.price}}</td>
+
+            <!--if no image he shouldn't show a default image icon-->
+            <td><span *ngIf="c.image"><img width="70px" src="{{c.image}}"></span> </td>
+
+        </tr>
+
+    </table>
+</div>

@@ -1,0 +1,99 @@
+<div class="container">
+    <!--If an error message appears, it will come in place of the standard all-coupons screen -->
+
+    <div *ngIf="!companyService.error">
+        <h2>
+            {{loginService.username}}'s coupons
+        </h2>
+
+        <!-- Company coupons can be sorted by category, expiry date, by price or all -->
+        <h4>Choose a filter:</h4>
+
+        <div class="row">
+
+            <div class="col-md-3 col-md-offset-2">
+                <input class="form-control" type="number" placeholder="Enter price" [(ngModel)]="byPrice" />
+            </div>
+
+            <div class="col-md-3">
+                <select class="form-control" [(ngModel)]="byCategory">
+                    <option *ngFor="let category of companyService.categories">{{category}}</option>
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <input class="form-control" type="date" [(ngModel)]="byDate">
+            </div>
+        </div>
+        <!--input row-->
+
+        <div class="row">
+            <div class="col-md-2">
+                <button class="btn btn-primary" (click)="selectAllCoupons()">See all coupons</button>
+            </div>
+
+            <div class="col-md-3">
+                <button class="btn btn-info" [disabled]="!byPrice" (click)="selectByPrice()">Select coupons up to
+                    this price</button>
+            </div>
+
+            <div class="col-md-3">
+                <button class="btn btn-info" [disabled]="!byCategory" (click)="selectByCategory()">Select coupons by
+                    category</button>
+            </div>
+
+            <div class="col-md-3">
+                <button class="btn btn-info" [disabled]="!byDate" (click)="selectByDate()">Select coupons by exp.
+                    date</button>
+            </div>
+        </div>
+        <!--button row-->
+        <hr>
+
+        <div class="row" *ngIf="companyService.selectedCoupons?.length == 0">
+            <div class="col-md-12">
+                <app-empty-list whatInWhere={{emptyListMessage}}></app-empty-list>
+
+            </div>
+        </div>
+
+
+        <table *ngIf="companyService.selectedCoupons?.length > 0" class="table thead-dark table-bordered">
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>StartDate</th>
+                <th>EndDate</th>
+                <th>Amount</th>
+                <th>Category</th>
+                <th>Message</th>
+                <th>Price</th>
+                <th>Image</th>
+            </tr>
+
+            <!--In any case that result list comes back empty from server, 
+    the empty list component will be shown with an appropriate message according to the sort method chosen -->
+
+            <tr *ngIf="companyService.selectedCoupons?.length == 0">
+                <td colspan="9" width="100%">
+                </td>
+            </tr>
+
+
+            <tr *ngFor="let c of companyService.selectedCoupons">
+                <td>{{c.id}}</td>
+                <td>{{c.title}}</td>
+                <td>{{c.startDate}}</td>
+                <td>{{c.endDate}}</td>
+                <td>{{c.amount}}</td>
+                <td>{{c.category}}</td>
+                <td>{{c.message}}</td>
+                <td>{{c.price}}</td>
+                <!--if no image he shouldn't show a default image icon-->
+                <td><span *ngIf="c.image"><img width="70px" src="{{c.image}}"></span> </td>
+
+            </tr>
+        </table>
+    </div>
+   
+</div>

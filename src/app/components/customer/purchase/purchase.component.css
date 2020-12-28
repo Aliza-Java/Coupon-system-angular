@@ -1,0 +1,11 @@
+div {
+    height: 80%;
+    overflow: auto;
+    overflow-x:hidden;
+}
+
+
+
+table {
+    margin: 50px auto;
+}

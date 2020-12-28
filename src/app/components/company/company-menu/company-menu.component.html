@@ -1,0 +1,12 @@
+<!--A click on any router link will clear all messages and core variables in companyService-->
+
+<h3>Select an action:</h3>
+<br>
+<nav>
+    <a routerLink="company/home" (click)=companyService.resetMessages()>Home</a>
+    <a routerLink="company/coupons" (click)=companyService.resetMessages()>List of coupons</a>
+    <a routerLink="company/newcoupon" (click)=companyService.resetMessages()>Enter a new coupon</a>
+    <a routerLink="company/coupon" (click)=companyService.resetMessages()>Find coupon details</a>
+    <a routerLink="company/updatecoupon" (click)=companyService.resetMessages()>Update existing coupon</a>
+    <a routerLink="company/removecoupon" (click)=companyService.resetMessages()>Delete a coupon</a>
+</nav>

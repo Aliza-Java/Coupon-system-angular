@@ -1,0 +1,112 @@
+<div class="container">
+
+    <!--If there are no coupons, empty list notice will appear instead of dropdown.-->
+
+    <div *ngIf="companyService.allCoupons?.length == 0">
+        <app-empty-list whatInWhere="coupons for your company."></app-empty-list>
+    </div>
+
+    <div *ngIf="companyService.allCoupons?.length > 0">
+       <br>
+        <h2>Select the coupon you wish to update:</h2>
+
+        <div class="row">
+            <div class="col-md-1 col-md-offset-4">
+                <select class="form-control" [(ngModel)]="couponId">
+                    <option *ngFor="let c of companyService.allCoupons">{{c.id}}</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-info" [disabled]="!couponId" (click)="fillCouponDetails()">Find this
+                    coupon</button>
+            </div>
+        </div>
+        <hr>
+    </div>
+
+  
+
+    <!--User can only update price and expiration date.-->
+    <div class="showAllCoupons" *ngIf="couponToUpdate && !companyService.error">
+        <form #formInfo="ngForm">
+            <table class="table thead-dark table-bordered">
+                <tr class="give-space">
+                    <td>Id:</td>
+                    <td class="text-left">{{couponToUpdate.id}}</td>
+                    <td></td>
+                </tr>
+                <tr class="give-space">
+                    <td>Title: </td>
+                    <td class="text-left">{{couponToUpdate.title}}</td>
+                    <td></td>
+
+                </tr>
+                <tr>
+                    <td>Amount: </td>
+                    <td class="text-left">{{couponToUpdate.amount}}</td>
+                    <td></td>
+
+                </tr>
+                <tr>
+                    <td>Category: </td>
+                    <td class="text-left">{{couponToUpdate.category}}</td>
+                    <td></td>
+
+                </tr>
+                <tr>
+                    <td>Price: </td>
+                    <td><input class="form-control text-left" #priceInfo="ngModel" type="number" required
+                            [(ngModel)]="couponToUpdate.price" pattern="^[+]?([.]\d+|\d+([.]\d+)?)$" name="price"
+                            (keydown)="enableSubmit()" /></td>
+                    <td><span class="error" *ngIf="priceInfo.errors?.pattern&&priceInfo.touched">Price must be a
+                            positive
+                            number</span>
+                        <span class="error" *ngIf="priceInfo.errors?.required&&priceInfo.touched">Price required</span>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>Message: </td>
+                    <td class="text-left">{{couponToUpdate.message}}</td>
+                    <td></td>
+
+                </tr>
+                <tr>
+                    <td>Start date: </td>
+                    <td class="text-left">{{couponToUpdate.startDate}}</td>
+                    <td></td>
+
+                </tr>
+                <tr>
+                    <td>Expiration date: </td>
+                    <td><input class="form-control text-left" #endDateInfo="ngModel" required type="date"
+                            [(ngModel)]="couponToUpdate.endDate" name="endDate" (keydown)="enableSubmit()"
+                            (change)="checkDates()" /></td>
+                    <td class="errortd">
+                        <p class="error" *ngIf="endDateInfo.errors?.required&&endDateInfo.touched">End date required</p>
+                        <p class="error" *ngIf="!endDateInfo.errors?.required&&backwardDates">End date can't be before
+                            start
+                            date.
+                        </p>
+                        <p class="error" *ngIf="!endDateInfo.errors?.required&&couponExpired">Coupon date expired. </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Coupon image: </td>
+                    <!--if no image he shouldn't show a default image icon-->
+                    <td><span *ngIf="couponToUpdate.image"><img width="220px" src="{{couponToUpdate.image}}" /></span>
+                    </td>
+                    <td></td>
+
+                </tr>
+            </table>
+
+            <!--As in new-coupon, changes cannot be sent unless form is valid and dates are logical.  
+        Also there must be a change in order to prevent unnecessary requests from the server -->
+            <button class="btn btn-success btn-lg"
+                [disabled]="formInfo.form.invalid || !wasChange || couponExpired || backwardDates"
+                (click)="submitChanges()">Submit changes</button>
+        </form>
+    </div>
+   
+</div>

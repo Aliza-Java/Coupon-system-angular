@@ -1,0 +1,35 @@
+<div *ngIf="!adminService.errorMessage">
+
+    <h2>Registered customers: </h2>
+
+    <div class="div-content">
+        <table class="table thead-dark table-bordered">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Password</th>
+                <th>Coupons</th>
+            </tr>
+
+            <!--Setting ups a message in case no customers exist -->
+            <tr *ngIf="adminService.allCustomers?.length == 0">
+                <td colspan="4" width="100%">
+                    <app-empty-list whatInWhere="customers in the system."></app-empty-list>
+                </td>
+            </tr>
+
+            <tr *ngFor="let c of adminService.allCustomers">
+                <td>{{c.id}}</td>
+                <td>{{c.name}}</td>
+                <td>{{c.password}}</td>
+                <td class="text-left">
+                    <ul class="text-left">
+                        <li class="text-left" *ngFor="let cp of c.coupons">id: {{cp.id}}, title: {{cp.title}}</li>
+                    </ul>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+

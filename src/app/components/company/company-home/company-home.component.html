@@ -1,0 +1,21 @@
+<div class="container text-center">
+
+    <div *ngIf="!companyService.error text-center">
+
+        <h2>Welcome, {{companyService.currentCompany.name}}! </h2>
+
+        <br>
+
+        <h2>Account details:</h2>
+        Id: {{companyService.currentCompany.id}}
+        <br>
+        Password: {{companyService.currentCompany.password}}
+        <br>
+        Email: {{companyService.currentCompany.email}}
+        <br>
+        <h2>Today is: {{todayDate | date:'fullDate'}}</h2>
+
+    </div>
+
+  
+</div>

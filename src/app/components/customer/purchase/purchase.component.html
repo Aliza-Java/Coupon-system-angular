@@ -1,0 +1,38 @@
+<div class="page-content">
+
+    <!-- A message will show if there are no coupons available for purchase. -->
+    <div *ngIf="customerService.availableCoupons?.length == 0">
+        <app-empty-list whatInWhere="coupons available for purchase."></app-empty-list>
+    </div>
+
+    <div *ngIf="customerService.availableCoupons?.length > 0">
+        <h2>Select the coupon you would like to purchase:</h2>
+        <table class="table thead-dark table-bordered">
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>StartDate</th>
+                <th>EndDate</th>
+                <th>Category</th>
+                <th>Message</th>
+                <th>Price</th>
+                <th>Image</th>
+            </tr>
+
+            <tr *ngFor="let c of customerService.availableCoupons" (click)="customerService.purchase(c.id)">
+                <td>{{c.id}}</td>
+                <td>{{c.title}}</td>
+                <td>{{c.startDate}}</td>
+                <td>{{c.endDate}}</td>
+                <td>{{c.category}}</td>
+                <td>{{c.message}}</td>
+                <td>{{c.price}}</td>
+
+                <!--if no image he shouldn't show a default image icon-->
+                <td><span *ngIf="c.image"><img width="70px" src="{{c.image}}"></span> </td>
+
+            </tr>
+        </table>
+    </div>
+    <h2 *ngIf="customerService.resultMessage">{{customerService.resultMessage}}</h2>
+</div>

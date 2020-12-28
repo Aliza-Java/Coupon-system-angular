@@ -1,0 +1,15 @@
+<div *ngIf="customerService.currentCustomer">
+
+    <h2>Welcome, {{customerService.currentCustomer.name}}! </h2>
+
+<br>
+    <h2>Account details:</h2>
+    <br>
+    Id: {{customerService.currentCustomer.id}}
+    <br>
+    Password: {{customerService.currentCustomer.password}}
+
+    <h2>Today is: {{todayDate | date:'fullDate'}}</h2>
+
+</div>
+

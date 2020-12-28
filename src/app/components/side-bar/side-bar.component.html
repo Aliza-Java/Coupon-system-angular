@@ -1,0 +1,35 @@
+<!--Sidebar containing menu will change according to login type 
+ If there is no login type (aka before login) a login hint button will show -->
+<div *ngIf="!loginService.user.type">
+    <h2>Welcome! </h2>
+    <br>
+    <p class="text-left">
+        This website was created using Angular and Java.
+        <br>
+        Try the different logins and see what users can do.
+    </p>
+    <ul>
+        <li>
+            <p>The Admin can manage the different companies and customers, with all CRUD methods.</p>
+        </li>
+        <br>
+        <li>
+            <p> A company can produce coupons. Each company can manage his own coupons.</p>
+        </li>
+        <br>
+        <li>
+            <p> A customer can purchase coupons (which are limited in number), and see the ones he owns already.</p>
+        </li>
+    </ul>
+</div>
+
+<div *ngIf="loginService.user.type=='ADMIN'">
+    <app-admin-menu></app-admin-menu>
+</div>
+<div *ngIf="loginService.user.type=='COMPANY'">
+    <app-company-menu></app-company-menu>
+</div>
+
+<div *ngIf="loginService.user.type=='CUSTOMER'">
+    <app-customer-menu></app-customer-menu>
+</div>

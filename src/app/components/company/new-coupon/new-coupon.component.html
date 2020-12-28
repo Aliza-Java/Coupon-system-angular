@@ -1,0 +1,88 @@
+<!--A successful result message will give the option of adding another coupon, instead of the standard new-coupon screen-->
+<div *ngIf="!companyService.resultMessage">
+
+    <h2>Enter new coupon details:</h2>
+
+    <form #formInfo="ngForm">
+        <table class="table thead-dark table-bordered">
+            <tr>
+                <td >Title: </td>
+                <td ><input class="form-control" required pattern="^.{2,}$" #titleInfo="ngModel" type="text" placeholder="Enter coupon title"
+                        [(ngModel)]="newCoupon.title" name="title" /></td>
+                <td class="errortd">  <span class="error" *ngIf="titleInfo.errors?.required&&titleInfo.touched">Missing title</span>
+                    <span class="error" *ngIf="titleInfo.errors?.pattern&&titleInfo.touched">Title too short</span></td>
+            
+                </tr>
+
+            <tr>
+                <td>Amount: </td>
+                <td ><input class="form-control" type="number" min="0" step="1" pattern="^[0-9]+$" [(ngModel)]="newCoupon.amount"
+                        #amountInfo="ngModel" placeholder="Enter amount of available coupons" name="amount" /></td>
+                <td><span class="error" *ngIf="amountInfo.errors?.pattern&&amountInfo.touched">Amount must be positive
+                        whole
+                        number</span></td>
+            </tr>
+            <tr>
+                <td>Category: </td>
+                <td><select class="form-control" [(ngModel)]="newCoupon.category" name="category" placeholder="Enter coupon category">
+                        <option *ngFor="let category of companyService.categories">{{category}}</option>
+                    </select></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Price: </td>
+                <td><input class="form-control" #priceInfo="ngModel" type="number" [(ngModel)]="newCoupon.price" name="price" min="0"
+                        required pattern="^[+]?([.]\d+|\d+([.]\d+)?)$" /></td>
+                <td><span class="error" *ngIf="priceInfo.errors?.pattern&&priceInfo.touched">Price must be a positive
+                        number</span>
+                    <span class="error" *ngIf="priceInfo.errors?.required&&priceInfo.touched">Price required</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Message: </td>
+                <td><textarea  class="form-control" rows="4" cols="29" maxlength="120" [(ngModel)]="newCoupon.message"
+                        name="message"></textarea></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Start date: </td>
+                <td><input class="form-control" type="date" [(ngModel)]="newCoupon.startDate" required name="startDate"
+                        #startDateInfo="ngModel" (change)="checkBothDates()" /></td>
+                <td><span class="error" *ngIf="startDateInfo.errors?.required&&startDateInfo.touched">Start date
+                        required</span></td>
+            </tr>
+            <tr>
+                <td>Expiration date: </td>
+                <td><input class="form-control" type="date" [(ngModel)]="newCoupon.endDate" required name="endDate" #endDateInfo="ngModel"
+                        (change)="checkBothDates()" /></td>
+                <td class="errortd"><p class="error" *ngIf="endDateInfo.errors?.required&&endDateInfo.touched">End date
+                        required</p>
+                    <p class="error" *ngIf="!endDateInfo.errors?.required&&backwardDates">End date can't be before
+                        start date.
+                    </p>
+                    <p class="error" *ngIf="!endDateInfo.errors?.required&&couponExpired">Coupon date expired.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>Image url:</td>
+                <td><input class="form-control" type="text" [(ngModel)]="newCoupon.image" name="image"></td>
+                <td></td>
+
+            </tr>
+
+
+        </table>
+        <!--Send button will be disabled if anything on the form is invalid, as well as the date checks that were made: 
+        coupon end date must not be expired, and must not be before start date. -->
+        <button class="btn btn-success btn-lg" [disabled]="formInfo.form.invalid || backwardDates || couponExpired"
+            (click)="createNewCoupon()">Send</button>
+    </form>
+
+</div>
+
+<div *ngIf="companyService.resultMessage">
+    <h2>{{companyService.resultMessage}}</h2>
+    <button (click)="again()" class="btn btn-primary btn-lg">Add another coupon</button>
+</div>

@@ -1,0 +1,29 @@
+<div *ngIf="!adminService.errorMessage">
+    <h2>Registered companies: </h2>
+
+    <div class="div-content">
+        <table class="table thead-dark table-bordered">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Password</th>
+                <th>Email</th>
+            </tr>
+
+            <!--Setting up a message in case no companies exist-->
+            <tr *ngIf="adminService.allCompanies?.length == 0">
+                <td colspan="4" width="100%">
+                    <app-empty-list whatInWhere="companies in the system."></app-empty-list>
+                </td>
+            </tr>
+
+            <tr *ngFor="let c of adminService.allCompanies">
+                <td>{{c.id}}</td>
+                <td>{{c.name}}</td>
+                <td>{{c.password}}</td>
+                <td>{{c.email}}</td>
+            </tr>
+
+        </table>
+    </div>
+</div>

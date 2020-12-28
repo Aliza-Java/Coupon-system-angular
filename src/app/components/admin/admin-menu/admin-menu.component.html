@@ -1,0 +1,17 @@
+<!--A click on any router link will clear all messages and core variables in adminService-->
+
+<h3>Select an action:</h3>
+<br>
+<nav>
+    <a routerLink="/admin/home" (click)=adminService.resetMessages()>Home</a>
+    <a routerLink="/admin/companies" (click)=adminService.resetMessages()>List of companies</a>
+    <a routerLink="/admin/newcompany" (click)=adminService.resetMessages()>New company</a>
+    <a routerLink="/admin/company" (click)=adminService.resetMessages()>Find company details</a>
+    <a routerLink="/admin/updatecompany" (click)=adminService.resetMessages()>Update existing company</a>
+    <a routerLink="/admin/removecompany" (click)=adminService.resetMessages()>Delete a company</a>
+    <a routerLink="/admin/customers" (click)=adminService.resetMessages()>List of customers</a>
+    <a routerLink="/admin/newcustomer" (click)=adminService.resetMessages()>New customer</a>
+    <a routerLink="/admin/customer" (click)=adminService.resetMessages()>Find customer details</a>
+    <a routerLink="/admin/updatecustomer" (click)=adminService.resetMessages()>Update existing customer</a>
+    <a routerLink="/admin/removecustomer" (click)=adminService.resetMessages()>Delete a customer</a>
+</nav>

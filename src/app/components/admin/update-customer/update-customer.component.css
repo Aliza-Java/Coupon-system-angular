@@ -1,0 +1,12 @@
+table{
+    border: black solid 1px;
+}
+
+.fixed-width{
+    width: 250px;
+    text-align: left;
+}
+
+tr{
+    height: 35px;
+}

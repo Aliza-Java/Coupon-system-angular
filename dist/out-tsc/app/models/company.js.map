@@ -1,0 +1,1 @@
+{"version":3,"file":"company.js","sourceRoot":"","sources":["../../../../src/app/models/company.ts"],"names":[],"mappings":"AAEA,MAAM,OAAO,OAAO;IACpB,iDAAiD;IAEjD,YACW,EAAW,EACX,IAAa,EACb,QAAiB,EACjB,KAAc,EACd,OAAkB;QAJlB,OAAE,GAAF,EAAE,CAAS;QACX,SAAI,GAAJ,IAAI,CAAS;QACb,aAAQ,GAAR,QAAQ,CAAS;QACjB,UAAK,GAAL,KAAK,CAAS;QACd,YAAO,GAAP,OAAO,CAAW;IAC3B,CAAC;CAEF"}

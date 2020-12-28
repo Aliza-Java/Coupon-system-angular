@@ -1,0 +1,19 @@
+div{
+    overflow-x: hidden;
+}
+
+td{
+    align-content: flex-start;
+   width:250px;
+}
+
+tr{
+    height: 35px;
+}
+
+.text-left{
+    align-content: left;
+}
+
+
+

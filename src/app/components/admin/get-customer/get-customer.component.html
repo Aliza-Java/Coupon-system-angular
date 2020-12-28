@@ -1,0 +1,48 @@
+<div class="container">
+    <h2>Select the customer (by Id):</h2>
+
+    <!--If there are no customers, empty list notice will appear instead of dropdown.-->
+
+    <div *ngIf="adminService.allCustomers?.length == 0">
+        <app-empty-list whatInWhere="customers in the system."></app-empty-list>
+    </div>
+
+
+    <div *ngIf="adminService.allCustomers?.length > 0" class="row">
+        <div class="col-md-1 col-md-offset-5">
+            <select class="form-control" [(ngModel)]="customerId">
+                <option *ngFor="let c of adminService.allCustomers"> {{c.id}}</option>
+            </select>
+        </div>
+        <div class="col-md-6 text-left">
+            <!--Preventing sending if no id was chosen-->
+            <button class="btn btn-info" [disabled]="!customerId"
+                (click)="adminService.findCustomerNow(customerId)">Find
+                now</button>
+        </div>
+    </div>
+
+    <div *ngIf="adminService.customerToGet">
+        <hr>
+        <table class="table thead-dark table-bordered">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Password</th>
+                <th>Coupons</th>
+            </tr>
+            <tr>
+                <td>{{adminService.customerToGet.id}}</td>
+                <td>{{adminService.customerToGet.name}}</td>
+                <td>{{adminService.customerToGet.password}}</td>
+                <td>
+                    <ul>
+                        <li class="text-left" *ngFor="let cp of adminService.customerToGet.coupons">id: {{cp.id}}, title: {{cp.title}}
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</div>

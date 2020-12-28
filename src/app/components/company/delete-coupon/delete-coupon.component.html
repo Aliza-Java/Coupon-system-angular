@@ -1,0 +1,46 @@
+<div class="container">
+    <div *ngIf="!companyService.error">
+
+        <div class="row" *ngIf="companyService.allCoupons?.length == 0">
+            <div class="col-md-12">
+                <app-empty-list whatInWhere="coupons for your company."></app-empty-list>
+            </div>
+        </div>
+
+        <div *ngIf="companyService.allCoupons?.length > 0">
+            <h3>Select the coupon you wish to delete: </h3>
+
+            <table class="table thead-dark table-bordered">
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>StartDate</th>
+                    <th>EndDate</th>
+                    <th>Amount</th>
+                    <th>Category</th>
+                    <th>Message</th>
+                    <th>Price</th>
+                    <th>Image</th>
+                </tr>
+
+                <!-- If no coupons exist for this company (and nothing to delete), emtpyList will appear with appropriate message-->
+
+
+                <tr *ngFor="let c of companyService.allCoupons" (click)="companyService.deleteCoupon(c.id)">
+                    <td>{{c.id}}</td>
+                    <td>{{c.title}}</td>
+                    <td>{{c.startDate}}</td>
+                    <td>{{c.endDate}}</td>
+                    <td>{{c.amount}}</td>
+                    <td>{{c.category}}</td>
+                    <td>{{c.message}}</td>
+                    <td>{{c.price}}</td>
+                    <!--if no image he shouldn't show a default image icon-->
+                    <td><span *ngIf="c.image"><img width="70px" src="{{c.image}}"></span> </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+  
+</div>

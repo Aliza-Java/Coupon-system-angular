@@ -1,0 +1,62 @@
+<div class="container">
+    <h2>Select the customer you wish to update:</h2>
+
+    <!--If there are no customers, empty list notice will appear instead of dropdown.-->
+
+    <div *ngIf="adminService.allCustomers?.length == 0">
+        <app-empty-list whatInWhere="customers in the system."></app-empty-list>
+    </div>
+
+    <div class="row">
+        <div *ngIf="adminService.allCustomers?.length > 0">
+
+            <div class="col-md-1 col-md-offset-4 text-right">
+                <select style="width: fit-content;" class="form-control" [(ngModel)]="customerId">
+                    <option *ngFor="let c of adminService.allCustomers">{{c.id}}</option>
+                </select>
+            </div>
+
+            <!--preventing sending if no customer has been chosen -->
+            <div class="col-md-3">
+                <button class="btn btn-info" [disabled]="!customerId" (click)="fillCustomerDetails()">Find this
+                    customer</button>
+            </div>
+        </div>
+    </div>
+    <br><br>
+
+    <div *ngIf="customerToUpdate">
+        <form  #formDetails="ngForm">
+            <table class="table thead-dark table-bordered">
+                <tr>
+                    <td class="text-left fixed-width">Id:</td>
+                    <td class="text-left fixed-width">{{customerToUpdate.id}}</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td class="fixed-width text-left">Name:</td>
+                    <td class="fixed-width text-left">{{customerToUpdate.name}}</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td class="fixed-width text-left">Password:</td>
+                    <td class="fixed-width text-left"><input required pattern="^.{4,}$" #passwordInfo="ngModel"
+                            name="password" type="password" [(ngModel)]="customerToUpdate.password"
+                            (keydown)="enableSubmit()" /></td>
+                    <td><span class="error" *ngIf="passwordInfo.errors?.required&&passwordInfo.touched">Password
+                            required</span>
+                        <span class="error" *ngIf="passwordInfo.errors?.pattern&&passwordInfo.touched">Password too
+                            short</span>
+                    </td>
+                </tr>
+
+            </table>
+
+            <!-- Submit button is disabled unless form is completely valid and only if a change was made -->
+            <button class="btn btn-success btn-lg" [disabled]="formDetails.form.invalid || !wasChange"
+                (click)="submitChanges()">Submit changes</button>
+        </form>
+    </div>
+</div>
